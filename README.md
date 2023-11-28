@@ -18,13 +18,14 @@ SFTP monitoring with python sftp in zabbix.
 
 # Installation
 
-Install cryptography and pysftp modules in python on zabbix server or zabbix proxy, below are the installation commands on ubuntu: 
+Install cryptography and pysftp modules in python on zabbix server or zabbix proxy, below are the installation commands on ubuntu 22.04: 
 
-  * apt-get install python-pip
+  * apt-get install python3-pip jq zabbix-sender
   * pip install --upgrade pip
-  * apt-get install build-essential libssl-dev libffi-dev python-dev
+  * apt-get install build-essential libssl-dev libffi-dev python3-dev
   * pip install cryptography
   * pip install pysftp
+  * ln -s /usr/bin/python3 /usr/bin/python
 
 Generate zabbix user ssh key on zabbix server or zabbix proxy, ssh key password is required.
 
@@ -51,7 +52,7 @@ Copy the scripts to zabbix server external scripts directory, normally /usr/lib/
   * /usr/lib/zabbix/externalscripts# chmod +x sftpCheck.py
   * /usr/lib/zabbix/externalscripts# chmod +x sftpCheck.sh
 
-Import the sftp check template and create a new host in zabbix, link the template to the new host, set the value of the following macros on the template,
+Import the sftp check template and create a new host in zabbix (no spaces are allowed in the hostname of the new host), link the template to the new host, set the value of the following macros on the template,
  
   * {$SFTP_KEY_FILE} - <zabbix_user_homepath>/.ssh/id_rsa
   * {$SFTP_KEY_PASS} - password of zabbix user private key
