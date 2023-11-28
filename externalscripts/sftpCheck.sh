@@ -18,7 +18,7 @@ getSftpCheckResults(){
 }
 
 # Send the results to zabbix server by using zabbix sender
-result=$(getSftpCheckResults | /usr/bin/zabbix_sender -c /etc/zabbix/zabbix_agentd.conf -i - 2>&1)
+result=$(getSftpCheckResults | /usr/bin/zabbix_sender -c /etc/zabbix/zabbix_agent2.conf -i - 2>&1)
 response=$(echo "$result" | awk -F ';' '$1 ~ /^info/ && match($1,/[0-9].*$/) {sum+=substr($1,RSTART,RLENGTH)} END {print sum}')
 if [ -n "$response" ]; then
         echo "$response"
